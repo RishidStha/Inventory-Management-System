@@ -1,0 +1,28 @@
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
+
+const Supplier = sequelize.define("Supplier", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  mobile: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  vatNo: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  address: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+});
+
+module.exports = Supplier;
