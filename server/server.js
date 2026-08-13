@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const supplierRoutes = require("./routes/supplierRoutes");
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 const { sequelize } = require("./models");
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/suppliers", supplierRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
