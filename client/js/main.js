@@ -115,10 +115,9 @@ function attachShellHandlers() {
     });
   });
 
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    clearToken();
-    navigate("login");
-  });
+  document
+    .getElementById("logoutBtn")
+    .addEventListener("click", showLogoutConfirm);
 
   document.getElementById("menuToggle").addEventListener("click", () => {
     document.getElementById("sidebar").classList.toggle("open");
@@ -328,6 +327,34 @@ function attachSupplierFormHandlers() {
       state.editingSupplier = null;
       navigate("suppliers");
     });
+}
+
+function showLogoutConfirm() {
+  if (document.getElementById("logoutModal")) return;
+
+  const modal = document.createElement("div");
+  modal.id = "logoutModal";
+  modal.className = "modal-backdrop";
+  modal.innerHTML = `
+    <div class="modal-box">
+      <h3>Log out?</h3>
+      <p>Are you sure you want to log out?</p>
+      <div class="modal-actions">
+        <button class="btn" id="cancelLogout">Cancel</button>
+        <button class="btn danger" id="confirmLogout">Log out</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  document
+    .getElementById("cancelLogout")
+    .addEventListener("click", () => modal.remove());
+  document.getElementById("confirmLogout").addEventListener("click", () => {
+    modal.remove();
+    clearToken();
+    navigate("login");
+  });
 }
 
 // ---------- Init ----------

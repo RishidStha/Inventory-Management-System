@@ -1,6 +1,14 @@
 // render.js - pure functions: given data, return an HTML string.
 // No fetching, no event listeners - main.js handles those.
 
+const icons = {
+  dashboard: `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>`,
+  products: `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>`,
+  suppliers: `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3 3-5 7-5s7 2 7 5"/><circle cx="17" cy="8" r="3"/><path d="M16 15c3 .3 5 2 5 5"/></svg>`,
+  bell: `<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`,
+  settings: `<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>`,
+};
+
 function renderAppShell(innerHtml, activePage) {
   const isActive = (page) => (activePage === page ? "active" : "");
 
@@ -12,9 +20,9 @@ function renderAppShell(innerHtml, activePage) {
           <span>StockGate</span>
         </div>
         <nav>
-          <a href="#" data-page="dashboard" class="nav-link ${isActive("dashboard")}">Dashboard</a>
-          <a href="#" data-page="products" class="nav-link ${isActive("products") || activePage === "productForm" ? "active" : ""}">Products</a>
-          <a href="#" data-page="suppliers" class="nav-link ${isActive("suppliers") || activePage === "supplierForm" ? "active" : ""}">Suppliers</a>
+          <a href="#" data-page="dashboard" class="nav-link ${isActive("dashboard")}">${icons.dashboard}<span>Dashboard</span></a>
+          <a href="#" data-page="products" class="nav-link ${isActive("products") || activePage === "productForm" ? "active" : ""}">${icons.products}<span>Products</span></a>
+          <a href="#" data-page="suppliers" class="nav-link ${isActive("suppliers") || activePage === "supplierForm" ? "active" : ""}">${icons.suppliers}<span>Suppliers</span></a>
         </nav>
         <button id="logoutBtn" class="logout-btn">Log out</button>
       </aside>
@@ -22,6 +30,10 @@ function renderAppShell(innerHtml, activePage) {
       <button id="menuToggle" class="menu-toggle">☰</button>
 
       <main class="content" id="content">
+        <div class="topbar">
+          <button class="icon-btn" title="Notifications">${icons.bell}<span class="dot"></span></button>
+          <button class="icon-btn" title="Settings">${icons.settings}</button>
+        </div>
         ${innerHtml}
       </main>
     </div>
@@ -32,7 +44,7 @@ function renderLoginPage() {
   return `
     <div class="auth-page">
       <div class="auth-side">
-        <div class="brand-icon">📦</div>
+        <img src="img/logo.png" alt="StockGate logo" class="brand-logo" />
         <h1>StockGate</h1>
         <p>Simple inventory management built for small stores. Track stock, suppliers, and never run out unexpectedly.</p>
       </div>
@@ -69,7 +81,7 @@ function renderSignupPage() {
   return `
     <div class="auth-page">
       <div class="auth-side">
-        <div class="brand-icon">📦</div>
+        <img src="img/logo.png" alt="StockGate logo" class="brand-logo" />
         <h1>StockGate</h1>
         <p>Inventory management for small stores. Set up your account to get started.</p>
       </div>

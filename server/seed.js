@@ -12,7 +12,7 @@ async function seed() {
     process.exit(0);
   }
 
-  const passwordHash = await bcrypt.hash("admin123", 10);
+  const passwordHash = await bcrypt.hash("Stk9!gVault#26", 10);
   await User.create({ name: "Store Owner", email, passwordHash });
 
   console.log(
