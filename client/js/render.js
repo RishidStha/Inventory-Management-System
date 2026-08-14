@@ -158,7 +158,7 @@ function renderProductCards(products) {
       const statusClass = p.status.toLowerCase().replace(/\s+/g, "-");
       return `
         <div class="product-card ${statusClass}" data-id="${p.id}">
-          <img src="${p.imagePath ? "http://localhost:5000" + p.imagePath : ""}" onerror="this.style.background='#ddd'" />
+          <img src="${p.imagePath ? "https://stockgate-api.onrender.com" + p.imagePath : ""}" onerror="this.style.background='#ddd'" />
           <div class="info">
             <strong>${p.name}</strong>
             <div>Rs ${p.price}</div>
