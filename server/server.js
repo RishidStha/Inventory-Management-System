@@ -12,6 +12,21 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.get("/api/seed-admin-once", async (req, res) => {
+  const bcrypt = require("bcrypt");
+  const { User } = require("./models");
+  const existing = await User.findOne({
+    where: { email: "admin@stockgate.com" },
+  });
+  if (existing) return res.json({ message: "Already exists" });
+  const passwordHash = await bcrypt.hash("Stk9!gVault#26", 10);
+  await User.create({
+    name: "Store Owner",
+    email: "admin@stockgate.com",
+    passwordHash,
+  });
+  res.json({ message: "Admin created" });
+});
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/suppliers", supplierRoutes);
 app.use("/api/auth", authRoutes);
