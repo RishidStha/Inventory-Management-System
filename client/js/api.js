@@ -1,4 +1,4 @@
-const API_BASE = "http://https://stockgate-api.onrender.com/api";
+const API_BASE = "https://stockgate-api.onrender.com/api";
 
 function getToken() {
   return localStorage.getItem("token");
